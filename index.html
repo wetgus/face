@@ -19,7 +19,7 @@
             text-align: center;
             padding: 10px 0;
         }
-        .signup-form {
+        .signup-form, .login-form {
             display: none;
             position: fixed;
             top: 50%;
@@ -30,6 +30,7 @@
             border: 1px solid #ccc;
             padding: 20px;
             border-radius: 10px;
+            width: 400px; /* Wider Signup and Login form */
         }
         .modal-overlay {
             display: none;
@@ -41,6 +42,11 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 900;
         }
+        .btn[disabled] {
+            background-color: #e9ecef;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -49,7 +55,7 @@
         <h1>My Website</h1>
         <div>
             <a href="#" class="btn btn-primary me-2" id="signup-btn">Signup</a>
-            <a href="#" class="btn btn-secondary">Login</a>
+            <a href="#" class="btn btn-secondary" id="login-btn">Login</a>
         </div>
     </header>
 
@@ -107,7 +113,29 @@
         <div class="alert alert-success mt-3" id="success-message" style="display: none;">Account successfully created!</div>
     </div>
 
+    <!-- Login Form -->
+    <div class="login-form" id="login-form">
+        <h2>Login</h2>
+        <form id="login-form-element">
+            <div class="mb-3">
+                <label for="login-email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="login-email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="mb-3">
+                <label for="login-password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="login-password" required>
+                <div class="invalid-feedback">Please enter your password.</div>
+            </div>
+            <button type="submit" class="btn btn-secondary" id="login-btn-submit" disabled>Login</button>
+            <button type="button" class="btn btn-secondary" id="login-cancel-btn">Cancel</button>
+        </form>
+        <div class="alert alert-success mt-3" id="login-success-message" style="display: none;"></div>
+        <div class="alert alert-danger mt-3" id="login-error-message" style="display: none;"></div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="signup.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
