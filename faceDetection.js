@@ -1,7 +1,13 @@
+// Load face-api.js models from the 'models' directory
 async function loadFaceModels() {
-  await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
-  await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
-  await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+  try {
+    await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
+    await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+    await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+    console.log('Face models successfully loaded');
+  } catch (error) {
+    console.error('Error loading face models:', error);
+  }
 }
 
 // Detect face in the captured image
