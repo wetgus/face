@@ -15,10 +15,11 @@ async function startCamera() {
 function takePhoto() {
   const canvas = document.getElementById('canvas');
   const context = canvas.getContext('2d');
-  context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  const image = canvas.toDataURL('image/png');
   
-  // Pass the captured image to face detection
+  // Draw the current video frame onto the canvas
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+  // Pass the captured canvas image to the face detection function
   detectFace(canvas);
 }
 
