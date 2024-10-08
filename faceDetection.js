@@ -1,11 +1,11 @@
 // Load the models asynchronously
 async function loadFaceModels() {
   try {
-    // Ensure the face-api.js library is loaded before trying to use 'faceapi'
+    // Check if face-api.js is loaded by verifying 'faceapi' is defined
     if (typeof faceapi === 'undefined') {
       throw new Error('face-api.js is not loaded');
     }
-    
+
     // Load the models from the /models directory
     await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
     await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
