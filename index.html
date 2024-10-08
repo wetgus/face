@@ -1,141 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        .carousel {
-            flex: 1;
-        }
-        footer {
-            background-color: #f8f9fa;
-            text-align: center;
-            padding: 10px 0;
-        }
-        .signup-form, .login-form {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-            width: 400px; /* Wider Signup and Login form */
-        }
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 900;
-        }
-        .btn[disabled] {
-            background-color: #e9ecef;
-            color: #6c757d;
-            cursor: not-allowed;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Face Recognition Website</title>
+  <script defer src="cameraAccess.js"></script>
+  <script defer src="faceDetection.js"></script>
+  <script defer src="faceParameters.js"></script>
+  <script defer src="faceComparison.js"></script>
 </head>
 <body>
-
-    <header class="d-flex justify-content-between p-3">
-        <h1>My Website</h1>
-        <div>
-            <a href="#" class="btn btn-primary me-2" id="signup-btn">Signup</a>
-            <a href="#" class="btn btn-secondary" id="login-btn">Login</a>
-        </div>
-    </header>
-
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://via.placeholder.com/800x400?text=Banner+1" class="d-block w-100" alt="Banner 1">
-            </div>
-            <div class="carousel-item">
-                <img src="https://via.placeholder.com/800x400?text=Banner+2" class="d-block w-100" alt="Banner 2">
-            </div>
-            <div class="carousel-item">
-                <img src="https://via.placeholder.com/800x400?text=Banner+3" class="d-block w-100" alt="Banner 3">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-
-    <footer>
-        <p>&copy; 2024 My Website. All rights reserved.</p>
-    </footer>
-
-    <!-- Modal Overlay -->
-    <div class="modal-overlay" id="modal-overlay"></div>
-
-    <!-- Signup Form -->
-    <div class="signup-form" id="signup-form">
-        <h2>Signup</h2>
-        <form id="signup-form-element">
-            <div class="mb-3">
-                <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" required>
-                <div class="invalid-feedback">Please enter a valid CPF.</div>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" required>
-                <div class="invalid-feedback">Please enter a valid email address.</div>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" required>
-                <div class="invalid-feedback">Password must be 8-16 alphanumeric characters.</div>
-            </div>
-            <button type="submit" class="btn btn-primary" id="register-btn" disabled>Register</button>
-            <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
-        </form>
-        <div class="alert alert-success mt-3" id="success-message" style="display: none;">Account successfully created!</div>
-    </div>
-
-    <!-- Login Form -->
-    <div class="login-form" id="login-form">
-        <h2>Login</h2>
-        <form id="login-form-element">
-            <div class="mb-3">
-                <label for="login-email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="login-email" required>
-                <div class="invalid-feedback">Please enter a valid email address.</div>
-            </div>
-            <div class="mb-3">
-                <label for="login-password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="login-password" required>
-                <div class="invalid-feedback">Please enter your password.</div>
-            </div>
-            <button type="submit" class="btn btn-secondary" id="login-btn-submit" disabled>Login</button>
-            <button type="button" class="btn btn-secondary" id="login-cancel-btn">Cancel</button>
-        </form>
-        <div class="alert alert-success mt-3" id="login-success-message" style="display: none;"></div>
-        <div class="alert alert-danger mt-3" id="login-error-message" style="display: none;"></div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="signup.js"></script>
-    <script src="login.js"></script>
+  <h1>Face Recognition</h1>
+  
+  <!-- Video feed from the user's camera -->
+  <video id="video" width="640" height="480" autoplay></video>
+  
+  <!-- Button to take photo -->
+  <button id="takePhoto">Take Photo</button>
+  
+  <!-- Canvas to show captured image -->
+  <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+  
+  <!-- Log output -->
+  <div id="output"></div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
 </body>
 </html>
