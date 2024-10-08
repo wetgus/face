@@ -1,6 +1,6 @@
-// Load face-api.js models from the 'models' directory
 async function loadFaceModels() {
   try {
+    // Load models from the 'models' directory
     await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
     await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
     await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
@@ -12,17 +12,21 @@ async function loadFaceModels() {
 
 // Detect face in the captured image
 async function detectFace(canvas) {
-  const detections = await faceapi.detectAllFaces(canvas)
+  try {
+    const detections = await faceapi.detectAllFaces(canvas)
                                    .withFaceLandmarks()
                                    .withFaceDescriptors();
 
-  if (detections.length > 0) {
-    document.getElementById('output').innerText = `Detected ${detections.length} face(s).`;
-    // Pass the face descriptor for further processing
-    extractFaceParameters(detections[0].descriptor);
-  } else {
-    document.getElementById('output').innerText = "No face detected.";
+    if (detections.length > 0) {
+      document.getElementById('output').innerText = `Detected ${detections.length} face(s).`;
+      extractFaceParameters(detections[0].descriptor);
+    } else {
+      document.getElementById('output').innerText = "No face detected.";
+    }
+  } catch (error) {
+    console.error("Error detecting face:", error);
   }
 }
 
+// Load models on page load
 loadFaceModels();
