@@ -4,10 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Face Recognition Website</title>
+  
+  <!-- Load face-api.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+  
+  <!-- Load custom JavaScript files -->
   <script defer src="cameraAccess.js"></script>
   <script defer src="faceDetection.js"></script>
   <script defer src="faceParameters.js"></script>
   <script defer src="faceComparison.js"></script>
+  
+  <!-- Basic styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    video, canvas {
+      border: 1px solid black;
+    }
+    button {
+      margin-top: 20px;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
 </head>
 <body>
   <h1>Face Recognition</h1>
@@ -15,15 +42,13 @@
   <!-- Video feed from the user's camera -->
   <video id="video" width="640" height="480" autoplay></video>
   
-  <!-- Button to take photo -->
+  <!-- Button to take a photo -->
   <button id="takePhoto">Take Photo</button>
   
-  <!-- Canvas to show captured image -->
+  <!-- Canvas to display the captured image -->
   <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
   
   <!-- Log output -->
   <div id="output"></div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
 </body>
 </html>
